@@ -1,7 +1,6 @@
 #!/bin/bash
 
 if [ $# -ne 2 ]; then
-	echo "> error usage: $0 <dir> <search_str>"
 	exit 1
 fi
 

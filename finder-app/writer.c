@@ -30,10 +30,7 @@ int writer(const char* location, const char* string)
     openlog("writer.c", LOG_PID | LOG_CONS, LOG_USER);
     
     if(string != NULL || location != NULL)
-    {
-
-	openlog("writer.c", LOG_PID | LOG_CONS, LOG_USER);
-       
+    {   
 	int fd;
 	fd = open (location, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR);  
 

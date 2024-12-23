@@ -29,7 +29,7 @@ int writer(const char* location, const char* string)
     int status = 1;
     openlog("writer.c", LOG_PID | LOG_CONS, LOG_USER);
     
-    if(string != NULL || location != NULL)
+    if(string != NULL && location != NULL)
     {   
 	int fd;
 	fd = open (location, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR);  

@@ -65,8 +65,8 @@ bool do_exec(int count, ...)
     else
     {
        int waitStatus;
-   	   if(waitpid(pid, &waitStatus, 0) == -1)
-   	   {
+	   if(waitpid(pid, &waitStatus, 0) == -1)
+	   {
            syslog(LOG_ERR,"waitpid() failed");
            return false;          
 	   } 
@@ -90,7 +90,7 @@ bool do_exec_redirect(const char *outputfile, int count, ...)
 		int fd = open(outputfile, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 		if(fd < 0)
 		{
-	       syslog(LOG_ERR,"failed to open: %s", outputfile);          
+		   syslog(LOG_ERR,"failed to open: %s", outputfile);          
 		}
 		else
 		{
@@ -108,20 +108,20 @@ bool do_exec_redirect(const char *outputfile, int count, ...)
 			pid_t pid = fork();
 			if(pid < 0)
 			{
-		        syslog(LOG_ERR,"fork() failed");          
+				syslog(LOG_ERR,"fork() failed");          
 				close(fd);
 			}
 			else if (pid == 0)
 			{
-			    syslog(LOG_INFO,"Child process PID: %d",getpid());          
+				syslog(LOG_INFO,"Child process PID: %d",getpid());          
 				if(dup2(fd, STDOUT_FILENO) < 0)
 				{
-				    syslog(LOG_ERR,"fork() failed");          		
+					syslog(LOG_ERR,"fork() failed");				
 				}
 				close(fd);
 
 				execv(command[0], command);
-			    perror("execv");
+				perror("execv");
                 exit(EXIT_FAILURE);           
 			}
 			else
@@ -130,15 +130,15 @@ bool do_exec_redirect(const char *outputfile, int count, ...)
 				int waitstatus;
 				if(waitpid(pid, &waitstatus, 0) == -1)
 				{
-		            syslog(LOG_ERR,"waitpid() failed");
+					syslog(LOG_ERR,"waitpid() failed");
                     return false;
 				}
 				else if(WIFEXITED(waitstatus))
 				{
-		        	return (WTERMSIG(waitstatus) == 0);					
+					return (WTERMSIG(waitstatus) == 0);					
 				}
 			}        
-		    
+			
 		}
 	}
    
